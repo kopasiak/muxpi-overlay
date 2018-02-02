@@ -3,3 +3,5 @@ sys-apps/systemd -gcrypt -lz4 -sysv-utils
 dev-vcs/git -gpg -iconv -pcre -pcre-jit -perl -python
 net-firewall/iptables conntrack
 sys-process/procps ncurses
+net-fs/nfs-utils -nfsidmap -uuid -tcpd
+net-nds/rpcbind -tcpd
