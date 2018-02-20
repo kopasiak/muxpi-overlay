@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>a.mistewicz@samsung.com</email>
+    <name>Aleksander Mistewicz</name>
+  </maintainer>
+  <upstream>
+    <maintainer>
+      <email>625769020@qq.com</email>
+      <name>wuweidong</name>
+    </maintainer>
+    <remote-id type="github">friendlyarm/linux</remote-id>
+  </upstream>
+</pkgmetadata>
