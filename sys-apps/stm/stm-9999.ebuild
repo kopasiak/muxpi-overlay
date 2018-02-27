@@ -14,6 +14,8 @@ EGIT_REPO_URI="git://git.tizen.org/tools/muxpi"
 EGIT_CHECKOUT_DIR="${S}"
 inherit git-r3
 
+inherit user
+
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~arm"
@@ -38,4 +40,8 @@ src_compile() {
 
 src_install() {
 	dobin bin/stm
+}
+
+pkg_postinst() {
+	enewgroup stm
 }
