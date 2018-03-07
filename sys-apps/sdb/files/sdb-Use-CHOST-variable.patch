@@ -1,0 +1,46 @@
+From 2e4064ea4f5b451a97eb1ce27cd7f4596792e0b3 Mon Sep 17 00:00:00 2001
+From: Aleksander Mistewicz <a.mistewicz@samsung.com>
+Date: Tue, 6 Mar 2018 10:41:40 +0100
+Subject: [PATCH] Use CHOST variable
+
+Change-Id: Ib954c0cf107cac372280314836ea407b6262a277
+---
+ Makefile              | 8 ++++++++
+ SPC/gcc/Makefile.conf | 2 --
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 04da2ac..f030cac 100644
+--- a/Makefile
++++ b/Makefile
+@@ -18,6 +18,14 @@ ENCLIB_LFLAGS := ./SPC/gcc/build/linux/libPAKEClient.a
+ # sdb host tool
+ # =========================================================
+ 
++ifdef CHOST
++	CC := $(CHOST)-gcc
++	CXX := $(CHOST)-g++
++	
++	CROSS_COMPILE="$(CHOST)-"
++	export CROSS_COMPILE
++endif
++
+ ifeq ($(HOST_OS),darwin)
+ 	CC := clang
+ 	CXX := clang++
+diff --git a/SPC/gcc/Makefile.conf b/SPC/gcc/Makefile.conf
+index 61e2967..1c7c6b2 100755
+--- a/SPC/gcc/Makefile.conf
++++ b/SPC/gcc/Makefile.conf
+@@ -28,8 +28,6 @@ endif
+ #  Options                                         #
+ ####################################################
+ ifeq ($(PLATFORM), linux)
+-	CROSS_COMPILE=
+-	
+ 	CFLAGS+= -Wall -Wextra -Wcast-align -Wno-unused-parameter -Wshadow -Wwrite-strings -Wcast-qual -fstrict-aliasing -fsigned-char
+ 	CFLAGS+= -ffunction-sections -fdata-sections -fPIC  -Wstrict-prototypes -fpermissive
+ 	
+-- 
+2.7.4
+
