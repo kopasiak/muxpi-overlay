@@ -14,7 +14,7 @@ EGIT_REPO_URI="git://git.tizen.org/tools/muxpi"
 EGIT_CHECKOUT_DIR="${S}"
 inherit git-r3
 
-inherit user
+inherit user systemd
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -40,6 +40,9 @@ src_compile() {
 
 src_install() {
 	dobin bin/stm
+	systemd_dounit sw/nanopi/{stm.socket,stm-user.socket,stm.service}
+	systemd_enable_service basic.target stm.socket
+	systemd_enable_service basic.target stm-user.socket
 }
 
 pkg_postinst() {
