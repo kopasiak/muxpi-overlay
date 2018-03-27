@@ -6,13 +6,19 @@ EAPI=6
 EGO_PN="git.tizen.org/tools/muxpi"
 S=${WORKDIR}/${P}/src/${EGO_PN}
 
+if [[ ${PV} == "9999" ]]; then
+	EGIT_REPO_URI="git://git.tizen.org/tools/muxpi"
+	EGIT_CHECKOUT_DIR="${S}"
+	inherit git-r3
+else
+	SRC_URI="http://download.tizen.org/slav/releases/muxpi-${PV}.tar.gz"
+	KEYWORDS="~arm"
+fi
+
 inherit golang-build
 
 DESCRIPTION="Flash Over The Air"
 HOMEPAGE="https://wiki.tizen.org/MuxPi"
-EGIT_REPO_URI="git://git.tizen.org/tools/muxpi"
-EGIT_CHECKOUT_DIR="${S}"
-inherit git-r3
 
 LICENSE="Apache-2.0"
 SLOT="0"

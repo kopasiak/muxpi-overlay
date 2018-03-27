@@ -7,8 +7,10 @@ if [[ ${PV} == "9999" ]]; then
 	EGIT_REPO_URI="git://git.tizen.org/tools/lthor"
 	inherit git-r3
 else
-	SRC_URI="http://download.tizen.org/muxpi/releases/${P}.tar.gz"
+	MY_P="${PN}-sha1"
+	SRC_URI="https://git.tizen.org/cgit/tools/lthor/snapshot/${MY_P}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~arm"
+	S="${WORKDIR}/${MY_P}"
 fi
 
 inherit cmake-utils

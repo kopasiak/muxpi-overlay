@@ -5,13 +5,20 @@ EAPI=6
 
 DESCRIPTION="SDB client"
 HOMEPAGE="https://wiki.tizen.org/SDK"
-EGIT_REPO_URI="git://git.tizen.org/sdk/tools/sdb"
-EGIT_BRANCH="tizen_studio"
-inherit epatch git-r3
+if [[ ${PV} == "9999" ]]; then
+	EGIT_REPO_URI="git://git.tizen.org/sdk/tools/sdb"
+	EGIT_BRANCH="tizen_studio"
+	inherit git-r3
+else
+	MY_P="${PN}-sha1"
+	SRC_URI="https://git.tizen.org/cgit/sdk/tools/sdb/snapshot/${MY_P}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~x86 ~amd64 ~arm"
+	S="${WORKDIR}/${MY_P}"
+fi
+inherit epatch
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~x86 ~amd64 ~arm"
 IUSE=""
 
 RDEPEND="sys-libs/ncurses:5/5 dev-libs/openssl:0"
