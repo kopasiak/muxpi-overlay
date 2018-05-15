@@ -1,8 +1,12 @@
 app-arch/libarchive -e2fsprogs
-sys-apps/systemd -gcrypt -lz4 -sysv-utils
+sys-apps/systemd nat -gcrypt -lz4 -sysv-utils
 dev-vcs/git -gpg -iconv -pcre -pcre-jit -perl -python
 net-firewall/iptables conntrack
 sys-process/procps ncurses
 net-fs/nfs-utils -nfsidmap -uuid -tcpd
 net-nds/rpcbind -tcpd
 sys-devel/base-gcc -pch -ssp -fortran -nptl -openmp -sanitize
+sys-devel/gcc -pch -ssp -fortran -nptl -openmp -sanitize
+app-crypt/gnupg -smartcard
+sys-apps/portage -rsync-verify
+app-editors/vim -minimal

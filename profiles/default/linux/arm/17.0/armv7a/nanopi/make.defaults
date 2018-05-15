@@ -1,4 +1,10 @@
 USE="minimal -sendmail -pam -acl -seccomp -xattr -vtv -native-extensions -ipv6 -nls -ncurses -mime"
 CFLAGS="-O2 -pipe -fomit-frame-pointer -march=armv7-a -mtune=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4"
 CXXFLAGS="${CFLAGS}"
+ARCH=arm
+GOARCH="${ARCH}"
+GOARM=7
 FEATURES="buildpkg binpkg-multi-instance noman noinfo nodoc"
+
+PYTHON_TARGETS="python2_7 -python3_5 python3_6"
+PYTHON_SINGLE_TARGET="-python3_5 python3_6"

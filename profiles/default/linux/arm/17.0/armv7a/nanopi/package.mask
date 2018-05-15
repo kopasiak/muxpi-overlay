@@ -1,0 +1,3 @@
+=net-fs/nfs-utils-2.3.2
+>=sys-libs/gdbm-1.15
+~sys-devel/gcc-7.3.0

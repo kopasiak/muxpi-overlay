@@ -1,0 +1,2 @@
+sys-devel/base-gcc no-cflags.conf
+sys-devel/gcc no-cflags.conf
