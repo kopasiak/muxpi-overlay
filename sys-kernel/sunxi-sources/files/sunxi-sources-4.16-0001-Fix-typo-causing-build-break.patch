@@ -1,0 +1,26 @@
+From 1ee37f83bff8617922208ae1ba9f15f3c2f42077 Mon Sep 17 00:00:00 2001
+From: Aleksander Mistewicz <a.mistewicz@samsung.com>
+Date: Mon, 28 May 2018 14:41:43 +0200
+Subject: [PATCH] Fix typo causing build break
+
+Change-Id: I234e970a09eb071769edc46bac9f9ca3414c7f71
+---
+ drivers/net/ethernet/allwinner/sun8i-emac.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/allwinner/sun8i-emac.c b/drivers/net/ethernet/allwinner/sun8i-emac.c
+index 8247b61..7a4b3d4 100644
+--- a/drivers/net/ethernet/allwinner/sun8i-emac.c
++++ b/drivers/net/ethernet/allwinner/sun8i-emac.c
+@@ -1869,7 +1869,7 @@ static int sun8i_emac_ethtool_get_settings(struct net_device *ndev,
+ 		return -EBUSY;
+ 	}
+ 
+-	return phy_ethtool_gset(phy, cmd);
++	return phy_ethtool_sset(phy, cmd);
+ }
+ 
+ static int sun8i_emac_ethtool_set_settings(struct net_device *ndev,
+-- 
+2.7.4
+

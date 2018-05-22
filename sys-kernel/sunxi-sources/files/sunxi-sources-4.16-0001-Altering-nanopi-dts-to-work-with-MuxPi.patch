@@ -1,0 +1,66 @@
+From afe08eab26c051e76e0ae7ce8e32f11285bf4470 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zbigniew=20Kempczy=C5=84ski?= <z.kempczynsk@samsung.com>
+Date: Wed, 18 Oct 2017 07:55:41 +0200
+Subject: [PATCH] Altering nanopi dts to work with MuxPi
+
+Change-Id: Ief6fd94649a0b0f573387956726ce5cebf8dd878
+---
+ arch/arm/boot/dts/sun8i-h3-nanopi.dtsi | 8 ++++----
+ arch/arm/boot/dts/sunxi-h3-h5.dtsi     | 3 ++-
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/boot/dts/sun8i-h3-nanopi.dtsi b/arch/arm/boot/dts/sun8i-h3-nanopi.dtsi
+index 3fa3091..e755432 100644
+--- a/arch/arm/boot/dts/sun8i-h3-nanopi.dtsi
++++ b/arch/arm/boot/dts/sun8i-h3-nanopi.dtsi
+@@ -321,7 +321,7 @@
+ };
+ 
+ &i2c0 {
+-	status = "okay";
++	status = "disabled";
+ 	rtc@68 {
+ 		compatible = "dallas,ds1307";
+ 		reg = <0x68>;
+@@ -329,7 +329,7 @@
+ };
+ 
+ &i2c1 {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &i2c2 {
+@@ -341,7 +341,7 @@
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
+ 
+-	status = "okay";
++	status = "disabled";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&spi0_pins &spi0_cs_pins>;
+ 	cs-gpios = <&pio 2 3 GPIO_ACTIVE_HIGH>, <&pio 0 6 GPIO_ACTIVE_HIGH>;
+@@ -498,4 +498,4 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&ir_pins_a>;
+ 	status = "disabled";
+-};
+\ No newline at end of file
++};
+diff --git a/arch/arm/boot/dts/sunxi-h3-h5.dtsi b/arch/arm/boot/dts/sunxi-h3-h5.dtsi
+index 0137e88..94feb0d 100644
+--- a/arch/arm/boot/dts/sunxi-h3-h5.dtsi
++++ b/arch/arm/boot/dts/sunxi-h3-h5.dtsi
+@@ -245,7 +245,8 @@
+ 			phys = <&usbphy 0>;
+ 			phy-names = "usb";
+ 			extcon = <&usbphy 0>;
+-			status = "disabled";
++			status = "okay";
++			dr_mode = "otg";
+ 		};
+ 
+ 		usbphy: phy@1c19400 {
+-- 
+2.7.4
+
