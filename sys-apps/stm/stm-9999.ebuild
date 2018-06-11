@@ -3,19 +3,30 @@
 
 EAPI=6
 
-EGO_PN="git.tizen.org/tools/muxpi"
-S=${WORKDIR}/${P}/src/${EGO_PN}
+REPO_PATH="git.tizen.org/tools/muxpi"
+EGO_PN="${REPO_PATH}/sw/nanopi"
+S=${WORKDIR}/${P}/src/${REPO_PATH}
+
+EGO_VENDOR=(
+"golang.org/x/sys bff228c7b664c5fce602223a05fb708fd8654986 github.com/golang/sys"
+"periph.io/x/periph c0de80b1b075a2019fced09524f2318cf690a685 github.com/google/periph"
+"github.com/tarm/serial eaafced92e9619f03c72527efeab21e326f3bc36"
+"github.com/influxdata/influxdb 89e084a80fb1e0bf5e7d38038e3367f821fdf3d7"
+"github.com/coreos/go-systemd 39ca1b05acc7ad1220e09f133283b8859a8b71ab"
+)
+
+inherit golang-build golang-vcs-snapshot user systemd
 
 if [[ ${PV} == "9999" ]]; then
 	EGIT_REPO_URI="git://git.tizen.org/tools/muxpi"
 	EGIT_CHECKOUT_DIR="${S}"
 	inherit git-r3
+	SRC_URI="${EGO_VENDOR_URI}"
 else
-	SRC_URI="http://download.tizen.org/slav/releases/muxpi-${PV}.tar.gz"
+	SRC_URI="http://download.tizen.org/slav/releases/muxpi-${PV}.tar.gz
+		${EGO_VENDOR_URI}"
 	KEYWORDS="~arm"
 fi
-
-inherit golang-build user systemd
 
 DESCRIPTION="STM service and command line interface for MuxPi"
 HOMEPAGE="https://wiki.tizen.org/MuxPi"
@@ -25,19 +36,24 @@ SLOT="0"
 KEYWORDS="~arm"
 IUSE=""
 
-DEPEND=""
+DEPEND=">=dev-lang/go-1.10"
 RDEPEND=""
 
-src_prepare() {
-	default_src_prepare
-	set -- env GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" go get -v -d "${EGO_PN}/sw/nanopi/cmd/stm" \
-		"${EGO_PN}/sw/nanopi/stm"
-	echo "$@"
-	"$@" || die "dependency fetch failed"
+src_unpack() {
+	if [[ ${PV} == "9999" ]]; then
+		git-r3_src_unpack
+	else
+		default_src_unpack
+	fi
+	golang-vcs-snapshot_src_unpack
 }
 
 src_compile() {
-	set -- env GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" GOARCH="${GOARCH:-$ARCH}" GOARM="${GOARM:-7}" go build -v -x -o bin/stm ${EGO_BUILD_FLAGS} "${EGO_PN}/sw/nanopi/cmd/stm"
+	set -- env GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" GOARCH="${GOARCH:-$ARCH}" GOARM="${GOARM:-7}" go install -v -work -x ${EGO_BUILD_FLAGS} "${EGO_PN}/stm"
+	echo "$@"
+	"$@" || die
+
+	set -- env GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" GOARCH="${GOARCH:-$ARCH}" GOARM="${GOARM:-7}" go build -v -x -o bin/stm ${EGO_BUILD_FLAGS} "${EGO_PN}/cmd/stm"
 	echo "$@"
 	"$@" || die "compile failed"
 }
