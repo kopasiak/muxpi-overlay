@@ -5,3 +5,4 @@ net-firewall/iptables conntrack
 sys-process/procps ncurses
 net-fs/nfs-utils -nfsidmap -uuid -tcpd
 net-nds/rpcbind -tcpd
+sys-devel/base-gcc -pch -ssp -fortran -nptl -openmp -sanitize
